@@ -31,7 +31,7 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", getRoot)
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":9090", nil)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

@@ -31,7 +31,7 @@ var _ = Describe("Client", Ordered, func() {
 				Context:       "./../../",
 				PrintBuildLog: true,
 			},
-			ExposedPorts: []string{"80/tcp"},
+			ExposedPorts: []string{"9090/tcp"},
 			WaitingFor:   wait.ForHTTP("/").WithStartupTimeout(10 * time.Second),
 		}
 
@@ -43,7 +43,7 @@ var _ = Describe("Client", Ordered, func() {
 			})
 		Expect(err).NotTo(HaveOccurred())
 
-		port, err := c.MappedPort(ctx, "8080")
+		port, err := c.MappedPort(ctx, "9090")
 		Expect(err).NotTo(HaveOccurred())
 
 		mappedPort = port.Port()
@@ -57,14 +57,14 @@ var _ = Describe("Client", Ordered, func() {
 
 	When("fetching ages from a mock integration API", func() {
 
-		It("Should successfully GET the Age of Sig from the API server", func() {
+		It("Should successfully GET the Age of Yuji from the API server", func() {
 			fmt.Println(mappedPort)
 			baseUrl := fmt.Sprintf("http://localhost:%s", mappedPort)
 
 			client, err := http_client.NewClient(baseUrl)
 			Expect(err).NotTo(HaveOccurred())
 
-			res, err := client.GetAge("Sig")
+			res, err := client.GetAge("Yuji")
 			Expect(err).NotTo(HaveOccurred())
 
 			Expect(res.Age).To(Equal(62))
