@@ -1,6 +1,10 @@
 package http_client
 
-import "net/http"
+import (
+	"errors"
+	"net/http"
+	"time"
+)
 
 type AgeResponse struct {
 	Count uint64
@@ -11,4 +15,17 @@ type AgeResponse struct {
 type client struct {
 	baseUrl    string
 	httpClient *http.Client
+}
+
+// Creates a new Client instance
+func NewClient(baseUrl string) (*client, error) {
+	if baseUrl == "" {
+		return nil, errors.New("Invalid baseUrl provided")
+	}
+
+	httpClient := http.Client{Timeout: time.Duration(5) * time.Second}
+	return &client{
+		baseUrl:    baseUrl,
+		httpClient: &httpClient,
+	}, nil
 }
