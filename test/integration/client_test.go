@@ -3,6 +3,10 @@ package integration_test
 import (
 	"context"
 	"fmt"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+	"github.com/testcontainers/testcontainers-go"
+	"github.com/testcontainers/testcontainers-go/wait"
 	http_client "go-testcontainer-mock-api/internal/http-client"
 	"testing"
 	"time"
@@ -10,7 +14,7 @@ import (
 
 func TestClient(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Client Sui
+	RunSpecs(t, "Client Suite")
 }
 
 var _ = Describe("Client", Ordered, func() {
@@ -39,7 +43,7 @@ var _ = Describe("Client", Ordered, func() {
 			})
 		Expect(err).NotTo(HaveOccurred())
 
-		port, err := c.MappedPort(ctx, "80")
+		port, err := c.MappedPort(ctx, "8080")
 		Expect(err).NotTo(HaveOccurred())
 
 		mappedPort = port.Port()
