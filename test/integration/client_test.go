@@ -31,7 +31,7 @@ var _ = Describe("Client", Ordered, func() {
 				Context:       "./../../",
 				PrintBuildLog: true,
 			},
-			ExposedPorts: []string{"9090/tcp"},
+			ExposedPorts: []string{"80/tcp"},
 			WaitingFor:   wait.ForHTTP("/").WithStartupTimeout(10 * time.Second),
 		}
 
@@ -43,7 +43,7 @@ var _ = Describe("Client", Ordered, func() {
 			})
 		Expect(err).NotTo(HaveOccurred())
 
-		port, err := c.MappedPort(ctx, "9090")
+		port, err := c.MappedPort(ctx, "80")
 		Expect(err).NotTo(HaveOccurred())
 
 		mappedPort = port.Port()
