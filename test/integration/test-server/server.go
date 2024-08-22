@@ -2,8 +2,10 @@ package test_server
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
+	"os"
 )
 
 type AgeResponse struct {
@@ -25,4 +27,13 @@ func getRoot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	io.WriteString(w, string(json))
+}
+
+func main() {
+	http.HandleFunc("/", getRoot)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }
